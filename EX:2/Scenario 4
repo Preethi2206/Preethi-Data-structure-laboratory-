@@ -1,0 +1,35 @@
+class MoveNode:
+    def __init__(self, move):
+        self.move = move
+        self.next = None
+class MoveStack:
+    def __init__(self):
+        self.top = None
+    def push_move(self, move):
+        new_node = MoveNode(move)
+        new_node.next = self.top
+        self.top = new_node
+        print(f"Move '{move}' added.")
+    def pop_move(self):
+        if not self.top:
+            print("No moves to undo.")
+            return None
+        last_move = self.top.move
+        self.top = self.top.next
+        print(f"Move '{last_move}' undone.")
+        return last_move
+    def display_moves(self):
+        if not self.top:
+            print("No moves in stack.")
+        else:
+            print("Current moves in stack:")
+            current = self.top
+            while current:
+                print(f"- {current.move}")
+                current = current.next
+moves = MoveStack()
+moves.push_move("Move Up")
+moves.push_move("Move Right")
+moves.display_moves()
+moves.pop_move()
+moves.display_moves()
