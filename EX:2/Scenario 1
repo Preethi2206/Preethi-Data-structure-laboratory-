@@ -1,0 +1,26 @@
+class BrowserHistory:
+    def __init__(self):
+        self.history = []
+    def push_url(self, url):
+        self.history.append(url)
+        print(f"Visited: {url}")
+    def pop_url(self):
+        if not self.history:
+            print("No URLs to go back to.")
+            return None
+        last_url = self.history.pop()
+        print(f"Back to: {last_url}")
+        return last_url
+    def display_history(self):
+        if not self.history:
+            print("No browsing history.")
+        else:
+            print("Browser History:")
+            for url in reversed(self.history):
+                print(f"- {url}")
+history = BrowserHistory()
+history.push_url("http://example.com")
+history.push_url("http://example.com/page1")
+history.display_history()
+history.pop_url()
+history.display_history()
