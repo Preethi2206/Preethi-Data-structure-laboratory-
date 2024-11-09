@@ -1,0 +1,26 @@
+class ContactList:
+    def __init__(self):
+        self.contacts = []       
+    def add_contact(self, name, phone):
+        self.contacts.append({"name": name, "phone": phone})
+        print(f"Contact {name} added.")       
+    def delete_contact(self, name):
+        for contact in self.contacts:
+            if contact["name"] == name:
+                self.contacts.remove(contact)
+                print(f"Contact {name} deleted.")
+                return
+        print(f"Contact {name} not found.")
+    def display_contacts(self):
+        if not self.contacts:
+            print("No contacts available.")
+        else:
+            print("Contact List:")
+            for contact in self.contacts:
+                print(f"Name: {contact['name']}, Phone: {contact['phone']}")
+contact_list = ContactList()
+contact_list.add_contact("Alice", "123-456-7890")
+contact_list.add_contact("Bob", "234-567-8901")
+contact_list.display_contacts()
+contact_list.delete_contact("Alice")
+contact_list.display_contacts()
