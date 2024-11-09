@@ -1,0 +1,25 @@
+class ShoppingList:
+    def __init__(self):
+        self.items = []        
+    def add_item(self, item):
+        self.items.append(item)
+        print(f"Item '{item}' added.")        
+    def remove_item(self, item):
+        if item in self.items:
+            self.items.remove(item)
+            print(f"Item '{item}' removed.")
+        else:
+            print(f"Item '{item}' not found.")           
+    def display_list(self):
+        if not self.items:
+            print("Shopping list is empty.")
+        else:
+            print("Shopping List:")
+            for item in self.items:
+                print(f"- {item}")
+shopping_list = ShoppingList()
+shopping_list.add_item("Milk")
+shopping_list.add_item("Bread")
+shopping_list.display_list()
+shopping_list.remove_item("Milk")
+shopping_list.display_list()
