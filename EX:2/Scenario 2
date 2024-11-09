@@ -1,0 +1,22 @@
+class TextEditor:
+    def __init__(self):
+        self.content = ""
+        self.history = []
+    def push_change(self, new_content):
+        self.history.append(self.content)  # Save current state before change
+        self.content = new_content
+        print(f"Content updated to: '{self.content}'")
+    def undo(self):
+        if not self.history:
+            print("No changes to undo.")
+            return
+        self.content = self.history.pop()
+        print(f"Undo: content reverted to '{self.content}'")
+    def display_content(self):
+        print(f"Current Content: '{self.content}'")
+editor = TextEditor()
+editor.push_change("Hello")
+editor.push_change("Hello, World!")
+editor.display_content()
+editor.undo()
+editor.display_content()
