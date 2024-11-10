@@ -1,0 +1,8 @@
+def reverse_string(text):
+    stack = []
+    for char in text:
+        stack.append(char)
+    reversed_text = ''.join(stack.pop() for _ in range(len(stack)))
+    return reversed_text
+text = "Hello World!"
+print(reverse_string(text))  
