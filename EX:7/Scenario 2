@@ -1,0 +1,17 @@
+class User:
+    def __init__(self, username, name, email):
+        self.username = username
+        self.name = name
+        self.email = email
+users = {
+    "alice123": User("alice123", "Alice", "alice@example.com"),
+    "bob456": User("bob456", "Bob", "bob@example.com"),
+    "charlie789": User("charlie789", "Charlie", "charlie@example.com"),
+}
+def find_user(username):
+    return users.get(username, None)
+user = find_user("bob456")
+if user:
+    print(f"Found user: {user.name}")  
+else:
+    print("User not found.")
