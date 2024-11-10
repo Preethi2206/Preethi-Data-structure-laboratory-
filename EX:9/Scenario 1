@@ -1,0 +1,68 @@
+#include <stdio.h>
+#include <limits.h>
+#include <stdbool.h>
+#define MAX_LOCATIONS 100
+#define INF INT_MAX
+int graph[MAX_LOCATIONS][MAX_LOCATIONS];
+int num_locations = 0;
+void add_route(int start, int end, int distance) {
+    graph[start][end] = distance;
+    graph[end][start] = distance; // For undirected graph
+    printf("Route added from %d to %d with distance %d.\n", start, end, distance);
+}
+void remove_route(int start, int end) {
+    graph[start][end] = INF;
+    graph[end][start] = INF;
+    printf("Route removed between %d and %d.\n", start, end);
+}
+int find_min_distance(int distances[], bool visited[]) {
+    int min = INF, min_index = -1;
+    for (int v = 0; v < num_locations; v++) {
+        if (!visited[v] && distances[v] <= min) {
+            min = distances[v];
+            min_index = v;
+        }
+    }
+    return min_index;
+}
+int dijkstra(int start, int destination) {
+    int distances[MAX_LOCATIONS];
+    bool visited[MAX_LOCATIONS] = {false};
+    for (int i = 0; i < num_locations; i++)
+        distances[i] = INF;
+    distances[start] = 0;
+    for (int i = 0; i < num_locations - 1; i++) {
+        int u = find_min_distance(distances, visited);
+        if (u == -1) break;
+        visited[u] = true;
+        for (int v = 0; v < num_locations; v++) {
+            if (!visited[v] && graph[u][v] != INF && distances[u] != INF &&
+                distances[u] + graph[u][v] < distances[v]) {
+                distances[v] = distances[u] + graph[u][v];
+            }
+        }
+    }
+    return distances[destination] == INF ? -1 : distances[destination];
+}
+
+int main() {
+    num_locations = 4;
+    for (int i = 0; i < MAX_LOCATIONS; i++)
+        for (int j = 0; j < MAX_LOCATIONS; j++)
+            graph[i][j] = INF;
+    add_route(0, 1, 5);
+    add_route(1, 2, 10);
+    add_route(0, 2, 15);
+    int distance = dijkstra(0, 2);
+    if (distance != -1)
+        printf("Shortest distance from 0 to 2 is %d.\n", distance);
+    else
+        printf("No path found.\n");
+    remove_route(0, 2);
+    distance = dijkstra(0, 2);
+    if (distance != -1)
+        printf("Shortest distance from 0 to 2 after route removal is %d.\n", distance);
+    else
+        printf("No path found.\n");
+    return 0;
+}
