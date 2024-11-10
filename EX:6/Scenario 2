@@ -1,0 +1,57 @@
+class Node:
+    def __init__(self, age):
+        self.age = age
+        self.next = None
+class LinkedList:
+    def __init__(self):
+        self.head = None
+    def append(self, age):
+        new_node = Node(age)
+        if not self.head:
+            self.head = new_node
+        else:
+            current = self.head
+            while current.next:
+                current = current.next
+            current.next = new_node
+    def merge_sort(self, node):
+        if not node or not node.next:
+            return node
+        mid = self.get_middle(node)
+        next_to_mid = mid.next
+        mid.next = None
+        left = self.merge_sort(node)
+        right = self.merge_sort(next_to_mid)
+       return self.sorted_merge(left, right)
+    def get_middle(self, node):
+        slow = fast = node
+        while fast.next and fast.next.next:
+            slow = slow.next
+            fast = fast.next.next
+        return slow
+    def sorted_merge(self, left, right):
+        if not left:
+            return right
+        if not right:
+            return left
+        if left.age <= right.age:
+            result = left
+            result.next = self.sorted_merge(left.next, right)
+        else:
+            result = right
+            result.next = self.sorted_merge(left, right.next)
+        return result
+    def sort(self):
+        self.head = self.merge_sort(self.head)
+    def display(self):
+        current = self.head
+        ages = []
+        while current:
+            ages.append(current.age)
+            current = current.next
+        return ages
+ll = LinkedList()
+for age in [34, 23, 42, 19, 60, 31]:
+    ll.append(age)
+ll.sort()
+print(ll.display())  
