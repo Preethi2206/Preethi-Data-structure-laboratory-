@@ -1,0 +1,11 @@
+def quick_sort(titles):
+    if len(titles) <= 1:
+        return titles
+    pivot = titles[len(titles) // 2]
+    left = [x for x in titles if x < pivot]
+    middle = [x for x in titles if x == pivot]
+    right = [x for x in titles if x > pivot]
+    return quick_sort(left) + middle + quick_sort(right)
+book_titles = ["The Great Gatsby", "Moby Dick", "1984", "To Kill a Mockingbird"]
+sorted_titles = quick_sort(book_titles)
+print(sorted_titles)  
