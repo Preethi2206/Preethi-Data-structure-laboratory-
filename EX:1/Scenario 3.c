@@ -1,4 +1,4 @@
-#include <stdio.h>
+.#include <stdio.h>
 #define MAX_GRADES 100
 float grades[MAX_GRADES];
 int gradeCount = 0;
